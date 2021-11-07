@@ -1,3 +1,43 @@
-#cloud-config
-ssh_authorized_keys:
-  - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIE/vV7RF70jAWYGKXrLLE60+Enye/zit2/0+L5dZQjJA mohammad.alsammak@nottech.de
+{
+  "ignition": {
+    "config": {},
+    "security": {
+      "tls": {}
+    },
+    "timeouts": {},
+    "version": "2.2.0"
+  },
+  "networkd": {},
+  "passwd": {
+    "users": [
+      {
+        "name": "core",
+        "sshAuthorizedKeys": [
+          "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIE/vV7RF70jAWYGKXrLLE60+Enye/zit2/0+L5dZQjJA mohammad.alsammak@nottech.de"
+        ]
+      }
+    ]
+  },
+  "storage": {
+    "files": [
+      {
+        "filesystem": "root",
+        "path": "/etc/hello-message",
+        "contents": {
+          "source": "data:,HELLO_MESSAGE%3D%22hello%20world!%22%0A",
+          "verification": {}
+        },
+        "mode": 356
+      }
+    ]
+  },
+  "systemd": {
+    "units": [
+      {
+        "contents": "[Unit]\nDescription=A hello world service\n[Service]\nType=oneshot\nEnvironmentFile=/etc/hello-message\nExecStart=/usr/bin/echo $HELLO_MESSAGE\n[Install]\nWantedBy=multi-user.target\n",
+        "enabled": true,
+        "name": "hello.service"
+      }
+    ]
+  }
+}
