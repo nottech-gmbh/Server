@@ -1,11 +1,8 @@
 {
   "ignition": {
     "config": {},
-    "security": {
-      "tls": {}
-    },
     "timeouts": {},
-    "version": "2.2.0"
+    "version": "2.1.0"
   },
   "networkd": {},
   "passwd": {
@@ -18,26 +15,6 @@
       }
     ]
   },
-  "storage": {
-    "files": [
-      {
-        "filesystem": "root",
-        "path": "/etc/hello-message",
-        "contents": {
-          "source": "data:,HELLO_MESSAGE%3D%22hello%20world!%22%0A",
-          "verification": {}
-        },
-        "mode": 356
-      }
-    ]
-  },
-  "systemd": {
-    "units": [
-      {
-        "contents": "[Unit]\nDescription=A hello world service\n[Service]\nType=oneshot\nEnvironmentFile=/etc/hello-message\nExecStart=/usr/bin/echo $HELLO_MESSAGE\n[Install]\nWantedBy=multi-user.target\n",
-        "enabled": true,
-        "name": "hello.service"
-      }
-    ]
-  }
+  "storage": {},
+  "systemd": {}
 }
